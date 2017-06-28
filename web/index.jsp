@@ -42,26 +42,18 @@
                     <!-- Title -->
                     <a id="switchUser">
                         <span class="android-title mdl-layout-title">
-                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">&nbsp;HR Survey</span>
+                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">
+                        </span>
                     </a>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation -->
-                    <!--<div class="android-navigation-container">-->
-                    <!--<nav class="mdl-navigation">-->
-                    <!--<a class="mdl-navigation__link" href="">Link</a>-->
-                    <!--</nav>-->
-                    <!--</div>-->
+                    <div class="android-navigation-container">
+                        <nav class="mdl-navigation">
+                            <div class="mdl-navigation__link" href="">HR Survey</div>
+                        </nav>
+                    </div>
                     <!-- Right aligned menu below button -->
-
-                    <button id="switch-role-menu"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">account_circle</i>
-                    </button>
-                    <button id="header-menu"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">more_vert</i>
-                    </button>
                     <a>
                         <span class="android-mobile-title mdl-layout-title" id="switchUserMobile">
                             <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">&nbsp;HR Survey</span>
