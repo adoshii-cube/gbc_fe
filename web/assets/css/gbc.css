@@ -90,12 +90,6 @@ a{
     color: #767777;
 }
 
-.android-header .mdl-navigation__link {
-    color: #757575;
-    font-weight: 700;
-    font-size: 14px;
-}
-
 .android-navigation-container {
     /* Simple hack to make the overflow happen to the left instead... */
     direction: rtl;
@@ -535,7 +529,7 @@ select {
 }
 
 .mdl-cell{
-    margin-top: 0px;
+    /*margin-top: 0px;*/
 }
 
 @media screen and (max-width: 1024px)
@@ -696,9 +690,9 @@ textarea {
     width: 150px;
 }
 
-.android-title, .android-mobile-title{
+.android-title, .android-mobile-title, .mdl-navigation__link{
     color: #ffffff;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .swiper-pagination-progress .swiper-pagination-progressbar{
@@ -755,4 +749,21 @@ textarea {
 
 #submitButton{
     float: right;
+    display: none;
+}
+
+.paginationContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.swiper-pagination{
+    position: inherit !important;
+}
+
+.mdl-progress{
+    position: absolute;
+    height: 8px;
+    width: 99%;
 }

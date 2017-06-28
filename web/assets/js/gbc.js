@@ -15,12 +15,26 @@ $(document).ready(function () {
             nextButton: '.swiper-next',
             prevButton: '.swiper-prev',
             pagination: '.swiper-pagination',
-            paginationType: 'progress',
+            paginationType: 'fraction',
             speed: 0,
             onlyExternal: true,
             keyboardControl: true,
             autoHeight: true,
-            roundLengths: true
+            roundLengths: true,
+            onSlideNextStart: function () {
+                if (swiper.isEnd) {
+                    $("#submitButton").css("display", "block");
+                } else {
+                    $("#submitButton").css("display", "none");
+                }
+            },
+            onSlidePrevStart: function () {
+                if (swiper.isEnd) {
+                    $("#submitButton").css("display", "block");
+                } else {
+                    $("#submitButton").css("display", "none");
+                }
+            }
         });
 
 //DISABLE TAB KEYPRESS DUE TO CONFLICT WITH SWIPER
