@@ -4,6 +4,10 @@
     Author     : adoshi
 --%>
 
+<%@page import="org.owen.survey.Question"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -64,17 +68,46 @@
                 <div class="page-content">
                     <div class="android-card-container mdl-grid">
                         <div class="swiper-container">
-                            <!-- Add Pagination -->
-                            <div class="swiper-pagination"></div>
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide" id="section1">
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question"id="mQuestion-">
-                                        <div class="questionText">
-                                            <h2>Question text for Section 1 Question 1 goes here</h2>
-                                        </div>
-                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section1Table" id="question3">
+                                <%
+                                    Question qObj = new Question();
+                                    Map<Integer, List<Question>> resultMap = qObj.getQuestionList();
+                                    Map<Integer, Map<Integer, String>> optionMap = qObj.getOptionsList();
+
+                                    for (Integer sectionId : resultMap.keySet()) {
+                                        String sectionHeader = "";
+                                        if (sectionId == 1) {
+                                            sectionHeader = "HR Section 1";
+                                        } else if (sectionId == 2) {
+                                            sectionHeader = "HR Effectiveness";
+                                        } else if (sectionId == 3) {
+                                            sectionHeader = "HR Importance";
+                                        } else if (sectionId == 4) {
+                                            sectionHeader = "Other Questions about HR Services";
+                                        } else if (sectionId == 5) {
+                                            sectionHeader = "About You";
+                                        }
+                                %>  
+                                <div class="swiper-slide" id="section-<%=sectionId%>">
+                                    <div class="sectionHeaderText">
+                                        <h2><%=sectionHeader%></h2>
+                                    </div>
+                                    <%
+                                        if (sectionId == 1) {
+                                    %>
+                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
+
+                                        <%
+                                            List<Question> qList = resultMap.get(sectionId);
+                                            for (int i = 0; i < qList.size(); i++) {
+                                                Question q = qList.get(i);
+                                                int questionId = q.getQuestionId();
+                                                Map<Integer, String> qoMap = optionMap.get(questionId);
+                                        %>
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section1Table" id="table-section-<%=sectionId%>">
                                             <thead>
                                                 <tr>
+                                                    <th>Question</th>
                                                     <th>Fully</th>
                                                     <th>Partially</th>
                                                     <th>To a limited extent</th>
@@ -82,341 +115,166 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <tr >
+                                                    <td><%=q.getQuestionText()%></td>
+                                                    <%
+                                                        for (int optionId : qoMap.keySet()) {
+                                                    %>
                                                     <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s1q1o1">
-                                                            <input type="radio" id="s1q1o1" class="mdl-radio__button" name="s1q1" value="1">
+                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
+                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
                                                         </label>
                                                     </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s1q1o2">
-                                                            <input type="radio" id="s1q1o2" class="mdl-radio__button" name="s1q1" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s1q1o3">
-                                                            <input type="radio" id="s1q1o3" class="mdl-radio__button" name="s1q1" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s1q1o4">
-                                                            <input type="radio" id="s1q1o4" class="mdl-radio__button" name="s1q1" value="1">
-                                                        </label>
-                                                    </td>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <!--                                        <table class="meScore" id="table-">
-                                                                                    <tr class="score">
-                                                                                        <td>1</td>
-                                                                                        <td>2</td>
-                                                                                        <td>3</td>
-                                                                                        <td>4</td>
-                                                                                        <td>5</td>
-                                                                                    </tr>
-                                                                                    <tr class="radioButtons">
-                                                                                        <td>
-                                                                                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="me1-">
-                                                                                                <input type="radio" id="me1-" class="mdl-radio__button" name="meOptions-" value="1">
-                                                                                            </label>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="me2-">
-                                                                                                <input type="radio" id="me2-" class="mdl-radio__button" name="meOptions-" value="2">
-                                                                                            </label>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="me3-">
-                                                                                                <input type="radio" id="me3-" class="mdl-radio__button" name="meOptions-" value="3">
-                                                                                            </label>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="me4-">
-                                                                                                <input type="radio" id="me4-" class="mdl-radio__button" name="meOptions-" value="4">
-                                                                                            </label>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="me5-">
-                                                                                                <input type="radio" id="me5-" class="mdl-radio__button" name="meOptions-" value="5">
-                                                                                            </label>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </table>-->
                                         <div class="mdl-textfield mdl-js-textfield openTextField">
+                                            <div class="instructionText">Please add any comments</div>
                                             <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-" ></textarea>
                                             <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
                                             <input type="hidden" id="qtype_" value="" /> 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="swiper-slide" id="section2">
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="oQuestion-">
-                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="question3">
+                                    <%
+                                        }
+                                    } else if (sectionId == 2 || sectionId == 3) {
+                                    %>
+                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
+                                        <div>For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its effectiveness.</div>
+                                        <%if (sectionId == 2) {%>
+                                        <div>12345</div>
+                                        <%} else if (sectionId == 3) {%>
+                                        <div>67890</div>
+                                        <%}%>
+
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-<%=sectionId%>">
                                             <thead>
                                                 <tr>
-                                                    <th class="mdl-data-table__cell--non-numeric">Question</th>
-                                                    <th>1<br>[Not important at all]</th>
-                                                    <th>2<br>[Somehwhat important] </th>
-                                                    <th>3<br>[Very important] </th>
-                                                    <th>4<br>[Critical]</th>
-                                                    <th>NA<br>[You have not used this service and cannot judge its importance]</th>
+                                                    <th>Question</th>
+                                                    <th>1</th>
+                                                    <th>2</th>
+                                                    <th>3</th>
+                                                    <th>4</th>
+                                                    <th>N/A</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <%
+                                                    List<Question> qList = resultMap.get(sectionId);
+                                                    for (int i = 0; i < qList.size(); i++) {
+                                                        Question q = qList.get(i);
+                                                        int questionId = q.getQuestionId();
+                                                        Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                %>
                                                 <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">Faith at word</td>
+                                                    <td><%=q.getQuestionText()%></td>
+                                                    <%
+                                                        for (int optionId : qoMap.keySet()) {
+                                                    %>
                                                     <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q1o1">
-                                                            <input type="radio" id="s2q1o1" class="mdl-radio__button" name="s2q1" value="1">
+                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
+                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
                                                         </label>
                                                     </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q1o2">
-                                                            <input type="radio" id="s2q1o2" class="mdl-radio__button" name="s2q1" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q1o3">
-                                                            <input type="radio" id="s2q1o3" class="mdl-radio__button" name="s2q1" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q1o4">
-                                                            <input type="radio" id="s2q1o4" class="mdl-radio__button" name="s2q1" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q1o5">
-                                                            <input type="radio" id="s2q1o5" class="mdl-radio__button" name="s2q1" value="1">
-                                                        </label>
-                                                    </td>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </tr>
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">Induction</td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q2o1">
-                                                            <input type="radio" id="s2q2o1" class="mdl-radio__button" name="s2q2" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q2o2">
-                                                            <input type="radio" id="s2q2o2" class="mdl-radio__button" name="s2q2" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q2o3">
-                                                            <input type="radio" id="s2q2o3" class="mdl-radio__button" name="s2q2" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q2o4">
-                                                            <input type="radio" id="s2q2o4" class="mdl-radio__button" name="s2q2" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q2o5">
-                                                            <input type="radio" id="s2q2o5" class="mdl-radio__button" name="s2q2" value="1">
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">Diversity and inclusion guidance</td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q3o1">
-                                                            <input type="radio" id="s2q3o1" class="mdl-radio__button" name="s2q3" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q3o2">
-                                                            <input type="radio" id="s2q3o2" class="mdl-radio__button" name="s2q3" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q3o3">
-                                                            <input type="radio" id="s2q3o3" class="mdl-radio__button" name="s2q3" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q3o4">
-                                                            <input type="radio" id="s2q3o4" class="mdl-radio__button" name="s2q3" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q3o5">
-                                                            <input type="radio" id="s2q3o5" class="mdl-radio__button" name="s2q3" value="1">
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">Headcount budget advice</td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q4o1">
-                                                            <input type="radio" id="s2q4o1" class="mdl-radio__button" name="s2q4" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q4o2">
-                                                            <input type="radio" id="s2q4o2" class="mdl-radio__button" name="s2q4" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q4o3">
-                                                            <input type="radio" id="s2q4o3" class="mdl-radio__button" name="s2q4" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q4o4">
-                                                            <input type="radio" id="s2q4o4" class="mdl-radio__button" name="s2q4" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q4o5">
-                                                            <input type="radio" id="s2q4o5" class="mdl-radio__button" name="s2q4" value="1">
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">HR policies</td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q6o1">
-                                                            <input type="radio" id="s2q6o1" class="mdl-radio__button" name="s2q6" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q6o2">
-                                                            <input type="radio" id="s2q6o2" class="mdl-radio__button" name="s2q6" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q6o3">
-                                                            <input type="radio" id="s2q6o3" class="mdl-radio__button" name="s2q6" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q6o4">
-                                                            <input type="radio" id="s2q6o4" class="mdl-radio__button" name="s2q6" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q6o5">
-                                                            <input type="radio" id="s2q6o5" class="mdl-radio__button" name="s2q6" value="1">
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="mdl-data-table__cell--non-numeric">Line Manager skills training and support (including lifecycle processes, developing your team, managing difficult situations, performance discussions)</td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q5o1">
-                                                            <input type="radio" id="s2q5o1" class="mdl-radio__button" name="s2q5" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q5o2">
-                                                            <input type="radio" id="s2q5o2" class="mdl-radio__button" name="s2q5" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q5o3">
-                                                            <input type="radio" id="s2q5o3" class="mdl-radio__button" name="s2q5" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q5o4">
-                                                            <input type="radio" id="s2q5o4" class="mdl-radio__button" name="s2q5" value="1">
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="s2q5o5">
-                                                            <input type="radio" id="s2q5o5" class="mdl-radio__button" name="s2q5" value="1">
-                                                        </label>
-                                                    </td>
-                                                </tr>
+                                                <%
+                                                    }
+                                                %>
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
-                                <div class="swiper-slide" id="section3">
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="oQuestion-">
-
-                                    </div>
-                                </div>
-                                <div class="swiper-slide" id="section4">
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="oQuestion-">
+                                    <%} else if (sectionId == 4) {%>
+                                    <%
+                                        List<Question> qList = resultMap.get(sectionId);
+                                        for (int i = 0; i < qList.size(); i++) {
+                                            Question q = qList.get(i);
+                                            int questionId = q.getQuestionId();
+                                    %>
+                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="question-<%=questionId%>">
                                         <div class="questionText">
-                                            <h2>Section 4 Question text goes here</h2>
+                                            <h2><%=q.getQuestionText()%></h2>
                                         </div>
                                         <div class="mdl-textfield mdl-js-textfield openTextField">
-                                            <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-" ></textarea>
+                                            <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-<%=questionId%>" ></textarea>
                                             <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
-                                            <input type="hidden" id="qtype_" value="" /> 
+                                            <!--                                            <input type="hidden" id="qtype_" value="" />-->
                                         </div>
                                     </div>
+                                    <%
+                                        }
+                                    } else if (sectionId == 5) {%>
+                                    <%
+                                        List<Question> qList = resultMap.get(sectionId);
+                                        for (int i = 0; i < qList.size(); i++) {
+                                            Question q = qList.get(i);
+                                            int questionId = q.getQuestionId();
+                                    %>
+                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="question-<%=questionId%>">
+                                        <div class="questionText">
+                                            <h2><%=q.getQuestionText()%></h2>
+                                        </div>
+                                        <div class="mdl-selectfield mdl-js-selectfield  mdl-selectfield--floating-label">
+                                            <select id="dropdown_function" name="function" class="mdl-selectfield__select" required>
+                                                <%
+                                                    Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                    for (int optionId : qoMap.keySet()) {
+                                                %>
+                                                <option value=<%=optionId%>><%=qoMap.get(optionId)%></option>
+                                                <%
+                                                    }
+                                                %>
+                                            </select>
+                                            <label class="mdl-selectfield__label" for="myselect">FUNCTION</label>
+                                            <span class="mdl-selectfield__error">Please select a function</span>
+                                        </div>
+                                    </div>
+                                    <%}
+                                        }%>
                                 </div>
-                                <div class="swiper-slide" id="section5">
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="oQuestion-">
-                                        <div class="questionText">
-                                            <h2>Section 4 Question text goes here</h2>
-                                        </div>
-                                        <div class="mdl-selectfield mdl-js-selectfield  mdl-selectfield--floating-label">
-                                            <select id="dropdown_function" name="function" class="mdl-selectfield__select" required>
-                                                <option value="1">Option 1</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                            </select>
-                                            <label class="mdl-selectfield__label" for="myselect">FUNCTION</label>
-                                            <span class="mdl-selectfield__error">Please select a function</span>
-                                        </div>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="oQuestion-">
-                                        <div class="questionText">
-                                            <h2>Section 4 Question text goes here</h2>
-                                        </div>
-                                        <div class="mdl-selectfield mdl-js-selectfield  mdl-selectfield--floating-label">
-                                            <select id="dropdown_function" name="function" class="mdl-selectfield__select" required>
-                                                <option value="1">Option 1</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                            </select>
-                                            <label class="mdl-selectfield__label" for="myselect">FUNCTION</label>
-                                            <span class="mdl-selectfield__error">Please select a function</span>
-                                        </div>
-                                    </div>
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="oQuestion-">
-                                        <div class="questionText">
-                                            <h2>Section 4 Question text goes here</h2>
-                                        </div>
-                                        <div class="mdl-selectfield mdl-js-selectfield  mdl-selectfield--floating-label">
-                                            <select id="dropdown_function" name="function" class="mdl-selectfield__select" required>
-                                                <option value="1">Option 1</option>
-                                                <option value="2">Option 2</option>
-                                                <option value="3">Option 3</option>
-                                            </select>
-                                            <label class="mdl-selectfield__label" for="myselect">FUNCTION</label>
-                                            <span class="mdl-selectfield__error">Please select a function</span>
-                                        </div>
+                                <%}%>
+                            </div>
+                            <!-- Add Arrows -->
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--2-col-phone">
+                                    <button class="mdl-button mdl-js-button swiper-prev" id="prevButton">
+                                        Previous
+                                    </button>
+                                    <button class="mdl-button mdl-js-button swiper-next" id="nextButton" disabled>
+                                        Next
+                                    </button>
+                                </div>
+                                <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--1-col-phone paginationContainer">
+                                    <!-- Add Pagination -->
+                                    <div class="swiper-pagination"></div>
+                                </div>    
+                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-col-phone">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="submitButton">
+                                        Submit
+                                    </button>
+                                    <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="submitButton">
+                                        Submit your responses
                                     </div>
                                 </div>
                             </div>
-                            <!-- Add Arrows -->
-                            <button class="mdl-button mdl-js-button swiper-prev">
-                                Previous
-                            </button>
-                            <button class="mdl-button mdl-js-button swiper-next">
-                                Next
-                            </button>
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="submitButton">
-                                Submit
-                            </button>
                             <!--<div class="swiper-button-next"></div>-->
                             <!--<div class="swiper-button-prev"></div>-->
                         </div>
-                    </div>
+                    </div>             
                 </div>
-            </main>
         </div>
-        <script src="assets/js/material.min.js"></script>
-        <script src="assets/js/mdl-selectfield.min.js"></script>
-        <script src="assets/js/gbc.js"></script>
-        <script src="assets/js/swiper.min.js"></script>
-    </body>
+    </div>
+</div>
+</main>
+</div>
+<script src="assets/js/material.min.js"></script>
+<script src="assets/js/mdl-selectfield.min.js"></script>
+<script src="assets/js/gbc.js"></script>
+<script src="assets/js/swiper.min.js"></script>
+</body>
 </html>

@@ -610,6 +610,7 @@ table {
     font-weight: 400;
     word-wrap: break-word;
     white-space: inherit;
+    top: 42px;
 }
 
 .instructionText{
@@ -720,15 +721,12 @@ textarea {
     /*position: absolute;*/
 }
 
-.section1Table{
-    width: 60%;
-}
-
 .section2Table thead tr th{
     vertical-align: top;
     padding-top: 8px;
 }
 
+.section1Table td:first-of-type, .section1Table th:first-of-type,
 .section2Table td:first-of-type, .section2Table th:first-of-type{
     width: 35%;
 }
