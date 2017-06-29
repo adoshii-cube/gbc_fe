@@ -24,12 +24,12 @@
         <link rel='shortcut icon' type='image/x-icon' href='assets/images/OWEN_Favicon.ico'/>
 
         <!-- Chrome, Firefox OS and Opera -->
-        <meta name="theme-color" content="#010101">
+        <meta name="theme-color" content="#303f9f">
         <!-- Windows Phone -->
-        <meta name="msapplication-navbutton-color" content="#010101">
+        <meta name="msapplication-navbutton-color" content="#303f9f">
         <!-- iOS Safari -->
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="#010101">
+        <meta name="apple-mobile-web-app-status-bar-style" content="#303f9f">
     </head>
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -38,7 +38,7 @@
                     <!-- Title -->
                     <a id="switchUser">
                         <span class="android-title mdl-layout-title">
-                            <img class="LT-logo-image" src="assets/images/Logo.png" alt="Logo">
+                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">
                         </span>
                     </a>
                     <div class="mdl-layout-spacer"></div>
@@ -46,22 +46,16 @@
                     <!-- Add spacer, to align navigation to the right -->
                     <!--<div class="mdl-layout-spacer"></div>-->
                     <!-- Navigation -->
-                    <!--<div class="android-navigation-container">-->
-                    <!--<nav class="mdl-navigation">-->
-                    <!--<a class="mdl-navigation__link" href="">Link</a>-->
-                    <!--</nav>-->
-                    <!--</div>-->
+                    <div class="android-navigation-container">
+                        <nav class="mdl-navigation">
+                            <div class="mdl-navigation__link" href="">HR Survey</div>
+                        </nav>
+                    </div>
                     <!-- Right aligned menu below button -->
-
-<!--                    <button id="switch-role-menu"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">account_circle</i>
-                    </button>
-
-                    <button id="header-menu"
-                            class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">more_vert</i>
-                    </button>-->
+                    <a>
+                        <span class="android-mobile-title mdl-layout-title" id="switchUserMobile">
+                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">&nbsp;HR Survey</span>
+                    </a>
 
                 </div>
             </header>

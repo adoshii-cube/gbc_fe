@@ -527,10 +527,6 @@ select {
     /*width: 100%;*/
 }
 
-.mdl-card{
-    overflow: visible;
-}
-
 .mdl-cell .mdl-selectfield{
     margin: 0 2%;
     overflow: visible;
@@ -563,6 +559,8 @@ select {
 .mdl-card {
     border-radius: 0px;
     min-height: 0px;
+    overflow: visible;
+    z-index: inherit;
 }
 
 .question {
@@ -575,7 +573,27 @@ select {
     align-items: center;
     border: 1px solid #f5f5f5;
     min-height: 120px;
-    z-index: inherit;
+    background: #ffffff;
+
+/*    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: 400;
+    min-height: 200px;
+    overflow: hidden;
+    width: 330px;
+    z-index: 1;
+    position: relative;
+    background: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;*/
+
+
+    /*z-index: inherit;*/
 }
 
 .questionText {
@@ -776,9 +794,9 @@ textarea {
 }
 
 .swiper-button-disabled{
-/*    color: rgba(0,0,0,.26) !important;
-    cursor: default !important;
-    background-color: transparent !important;*/
+    /*    color: rgba(0,0,0,.26) !important;
+        cursor: default !important;
+        background-color: transparent !important;*/
 }
 
 .swiper-container-horizontal>.swiper-pagination-progress {
@@ -868,4 +886,31 @@ textarea {
 
 .mdl-selectfield__list-option-box{
     max-height: 120px !important;
+}
+
+.mdl-spinner{
+    display: none;
+    margin: 0 auto;
+}
+
+.centerSpinner{
+    /*position: absolute; */
+    /* top: 0; */
+    /* bottom: 0; */
+    /* left: 0; */
+    /* right: 0; */
+    margin: auto;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.centerSpinner .android-card-container{
+    margin: 0 auto;
+}
+
+.mdl-selectfield__list-option-box ul{
+    z-index: 999;
 }

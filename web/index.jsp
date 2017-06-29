@@ -32,12 +32,12 @@
 
         <link rel='shortcut icon' type='image/x-icon' href='assets/images/OWEN_Favicon.ico'/>
         <!-- Chrome, Firefox OS and Opera -->
-        <meta name="theme-color" content="#010101">
+        <meta name="theme-color" content="#303f9f">
         <!-- Windows Phone -->
-        <meta name="msapplication-navbutton-color" content="#010101">
+        <meta name="msapplication-navbutton-color" content="#303f9f">
         <!-- iOS Safari -->
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="#010101">
+        <meta name="apple-mobile-web-app-status-bar-style" content="#303f9f">
     </head>
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -234,7 +234,7 @@
                                             Question q = qList.get(i);
                                             int questionId = q.getQuestionId();
                                     %>
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="question-<%=questionId%>">
+                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone question" id="question-<%=questionId%>">
                                         <div class="questionText">
                                             <h2><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></h2>
                                         </div>
@@ -255,7 +255,7 @@
                                         </div>
                                     </div>
                                     <%}
-                                                                }%>
+                                        }%>
                                 </div>
                                 <%}%>
                             </div>
@@ -274,7 +274,7 @@
                                     <div class="swiper-pagination"></div>
                                 </div>    
                                 <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--4-col-phone">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submitButton" onclick="submit()" disabled>
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submitButton" disabled>
                                         Submit
                                     </button>
                                     <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="submitButton">
@@ -285,16 +285,21 @@
                             <!--<div class="swiper-button-next"></div>-->
                             <!--<div class="swiper-button-prev"></div>-->
                         </div>
+                        <div class="centerSpinner">
+                            <div class="android-card-container mdl-grid">
+                                <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+                                    <div class="mdl-spinner mdl-js-spinner is-active" id="loadingSpinner"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>             
                 </div>
+            </main>
         </div>
     </div>
-</div>
-</main>
-</div>
-<script src="assets/js/material.min.js"></script>
-<script src="assets/js/mdl-selectfield.min.js"></script>
-<script src="assets/js/gbc.js"></script>
-<script src="assets/js/swiper.min.js"></script>
+    <script src="assets/js/material.min.js"></script>
+    <script src="assets/js/mdl-selectfield.min.js"></script>
+    <script src="assets/js/gbc.js"></script>
+    <script src="assets/js/swiper.min.js"></script>
 </body>
 </html>
