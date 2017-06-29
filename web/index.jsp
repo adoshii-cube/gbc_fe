@@ -116,7 +116,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr >
-                                                    <td><%=q.getQuestionText()%></td>
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div>*</div><%}%></td>
                                                     <%
                                                         for (int optionId : qoMap.keySet()) {
                                                     %>
@@ -152,6 +152,7 @@
                                                 </div>
                                                 <div class="mdl-card__supporting-text">
                                                     1 - Does not meet my expectations || 2 - Meets some of my expectations || 3 - Meets all of my expectations || 4 - Exceeds my expectations || NA - You have not used this service and cannot judge its effectiveness
+
                                                 </div>
                                             </div>
                                         </div>
@@ -188,7 +189,7 @@
                                                         Map<Integer, String> qoMap = optionMap.get(questionId);
                                                 %>
                                                 <tr>
-                                                    <td><%=q.getQuestionText()%></td>
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div>*</div><%}%></td>
                                                     <%
                                                         for (int optionId : qoMap.keySet()) {
                                                     %>
@@ -221,7 +222,6 @@
                                         <div class="mdl-textfield mdl-js-textfield openTextFieldNoInstructions">
                                             <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-<%=questionId%>" ></textarea>
                                             <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
-                                            <!--                                            <input type="hidden" id="qtype_" value="" />-->
                                         </div>
                                     </div>
                                     <%
@@ -235,10 +235,11 @@
                                     %>
                                     <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="question-<%=questionId%>">
                                         <div class="questionText">
-                                            <h2><%=q.getQuestionText()%></h2>
+                                            <h2><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div>*</div><%}%></h2>
                                         </div>
                                         <div class="mdl-selectfield mdl-js-selectfield  mdl-selectfield--floating-label">
-                                            <select id="dropdown_function" name="function" class="mdl-selectfield__select" required>
+                                            <select id="dropdown_function_<%=q.getQuestionId()%>" name="function" class="mdl-selectfield__select" required>
+                                                <option value="0">Please select an option</option>
                                                 <%
                                                     Map<Integer, String> qoMap = optionMap.get(questionId);
                                                     for (int optionId : qoMap.keySet()) {
