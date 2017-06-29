@@ -38,7 +38,7 @@
                     <!-- Title -->
                     <a id="switchUser">
                         <span class="android-title mdl-layout-title">
-                            <img class="LT-logo-image" src="assets/images/GBCText_Logo.png" alt="Logo">
+                            <img class="LT-logo-image" src="assets/images/Logo.png" alt="Logo">
                         </span>
                     </a>
                     <div class="mdl-layout-spacer"></div>
