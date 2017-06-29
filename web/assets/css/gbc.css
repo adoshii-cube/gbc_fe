@@ -865,3 +865,7 @@ textarea {
     display: inline-block;
     color: #f44336;
 }
+
+.mdl-selectfield__list-option-box{
+    max-height: 120px !important;
+}

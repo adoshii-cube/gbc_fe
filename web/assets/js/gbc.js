@@ -13,7 +13,7 @@ $(document).ready(function () {
         speed: 0,
         simulateTouch: false,
         onlyExternal: true,
-        keyboardControl: true,
+//        keyboardControl: true,
         autoHeight: true,
         roundLengths: true,
         onSlideNextStart: function () {
@@ -64,24 +64,11 @@ $(document).ready(function () {
     $(".radioButtons label").on("click", function () {
         var id = $(this).parent().parent().parent().parent().attr("id");
         var qId = id.split("-")[1];
-
         var value = $(this).find("input").val();
-
         $(this).parent().parent().parent().find("tr").eq(1).find("td").removeClass("selected");
         $(this).parent().parent().parent().find("tr").eq(1).find("td").filter(function () {
             return this.textContent.trim() === value;
         }).addClass("selected");
-//        if (answeredQuestions.length === 0 || (answeredQuestions.length > 0 && !answeredQuestions.includes(qId))) {
-//            answeredQuestions.push(qId);
-//            mQuestionAnswered++;
-//            $("#mQuestionCounter").text('');
-//            $("#mQuestionCounter").text(mQuestionAnswered + "/" + $("#mQListSize").val());
-//////////////        $(this).parent().parent().parent().parent().parent().addClass("answered");
-//            if (mQuestionAnswered === parseInt($("#mQListSize").val())) {
-//                $(".sectionMe").addClass("completed");
-//            }
-//            submitEnableDisable();
-//    }
     });
 
     $(".score td").on("click", function () {
@@ -91,17 +78,6 @@ $(document).ready(function () {
         var qId = id.split("-")[1];
         $(this).parent().find("td").removeClass("selected");
         $(this).addClass("selected");
-//        if (answeredQuestions.length === 0 || (answeredQuestions.length > 0 && !answeredQuestions.includes(qId))) {
-//            answeredQuestions.push(qId);
-//            mQuestionAnswered++;
-//            $("#mQuestionCounter").text('');
-//            $("#mQuestionCounter").text(mQuestionAnswered + "/" + $("#mQListSize").val());
-///////////        $(this).parent().parent().parent().parent().addClass("answered");
-//            if (mQuestionAnswered === parseInt($("#mQListSize").val())) {
-//                $(".sectionMe").addClass("completed");
-//            }
-//            submitEnableDisable();
-//        }
     });
 
     $('.swiper-wrapper :input').bind("keyup click change", function () {
@@ -179,7 +155,6 @@ function activateNavigationButtons() {
     }
 //    });
 }
-
 
 function submit() {
     var responseArr = [];
