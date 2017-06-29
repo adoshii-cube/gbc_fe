@@ -77,15 +77,15 @@
                                     for (Integer sectionId : resultMap.keySet()) {
                                         String sectionHeader = "";
                                         if (sectionId == 1) {
-                                            sectionHeader = "HR Section 1";
+                                            sectionHeader = "Section 1: Introduction";
                                         } else if (sectionId == 2) {
-                                            sectionHeader = "HR Effectiveness";
+                                            sectionHeader = "Section 2: HR Effectiveness";
                                         } else if (sectionId == 3) {
-                                            sectionHeader = "HR Importance";
+                                            sectionHeader = "Section 3: HR Importance";
                                         } else if (sectionId == 4) {
-                                            sectionHeader = "Other Questions about HR Services";
+                                            sectionHeader = "Section 4: Other Questions about HR Services";
                                         } else if (sectionId == 5) {
-                                            sectionHeader = "About You";
+                                            sectionHeader = "Section 5: About You";
                                         }
                                 %>  
                                 <div class="swiper-slide" id="section-<%=sectionId%>">
@@ -132,7 +132,7 @@
                                             </tbody>
                                         </table>
                                         <div class="mdl-textfield mdl-js-textfield openTextField">
-                                            <div class="instructionText">Please add any comments</div>
+                                            <div class="questionInstructionText">Please add examples</div>
                                             <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-" ></textarea>
                                             <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
                                             <input type="hidden" id="qtype_" value="" /> 
@@ -143,11 +143,29 @@
                                     } else if (sectionId == 2 || sectionId == 3) {
                                     %>
                                     <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
-                                        <div>For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its effectiveness.</div>
+                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its effectiveness.</div>
                                         <%if (sectionId == 2) {%>
-                                        <div>12345</div>
+                                        <div class="sectionInstructionTable">
+                                            <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
+                                                <div class="mdl-card__title mdl-card--expand">
+                                                    <h2 class="mdl-card__title-text">Key</h2>
+                                                </div>
+                                                <div class="mdl-card__supporting-text">
+                                                    1 - Does not meet my expectations || 2 - Meets some of my expectations || 3 - Meets all of my expectations || 4 - Exceeds my expectations || NA - You have not used this service and cannot judge its effectiveness
+                                                </div>
+                                            </div>
+                                        </div>
                                         <%} else if (sectionId == 3) {%>
-                                        <div>67890</div>
+                                        <div class="sectionInstructionTable">
+                                            <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
+                                                <div class="mdl-card__title mdl-card--expand">
+                                                    <h2 class="mdl-card__title-text">Key</h2>
+                                                </div>
+                                                <div class="mdl-card__supporting-text">
+                                                    1 - Not important at all || 2 - Somewhat important || 3 - Very important || 4 - Critical || NA - You have not used this service and cannot judge its importance
+                                                </div>
+                                            </div>
+                                        </div>
                                         <%}%>
 
                                         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-<%=sectionId%>">
@@ -200,7 +218,7 @@
                                         <div class="questionText">
                                             <h2><%=q.getQuestionText()%></h2>
                                         </div>
-                                        <div class="mdl-textfield mdl-js-textfield openTextField">
+                                        <div class="mdl-textfield mdl-js-textfield openTextFieldNoInstructions">
                                             <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-<%=questionId%>" ></textarea>
                                             <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
                                             <!--                                            <input type="hidden" id="qtype_" value="" />-->
@@ -230,8 +248,8 @@
                                                     }
                                                 %>
                                             </select>
-                                            <label class="mdl-selectfield__label" for="myselect">FUNCTION</label>
-                                            <span class="mdl-selectfield__error">Please select a function</span>
+                                            <!--<label class="mdl-selectfield__label" for="myselect">Please select an option</label>-->
+                                            <!--<span class="mdl-selectfield__error">Please select a function</span>-->
                                         </div>
                                     </div>
                                     <%}
@@ -254,7 +272,7 @@
                                     <div class="swiper-pagination"></div>
                                 </div>    
                                 <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-col-phone">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="submitButton">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--indigo-500 mdl-color-text--white" id="submitButton">
                                         Submit
                                     </button>
                                     <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="submitButton">
