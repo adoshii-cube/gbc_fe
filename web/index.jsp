@@ -116,7 +116,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr >
-                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div>*</div><%}%></td>
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
                                                     <%
                                                         for (int optionId : qoMap.keySet()) {
                                                     %>
@@ -133,7 +133,7 @@
                                         </table>
                                         <div class="mdl-textfield mdl-js-textfield openTextField">
                                             <div class="questionInstructionText">Please add examples</div>
-                                            <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-" ></textarea>
+                                            <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-<%=questionId%>" ></textarea>
                                             <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
                                             <input type="hidden" id="qtype_" value="" /> 
                                         </div>
@@ -143,8 +143,8 @@
                                     } else if (sectionId == 2 || sectionId == 3) {
                                     %>
                                     <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
-                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its effectiveness.</div>
                                         <%if (sectionId == 2) {%>
+                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its effectiveness.</div>
                                         <div class="sectionInstructionTable">
                                             <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
                                                 <div class="mdl-card__title mdl-card--expand">
@@ -157,6 +157,7 @@
                                             </div>
                                         </div>
                                         <%} else if (sectionId == 3) {%>
+                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of its importance in meeting your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its importance.</div>
                                         <div class="sectionInstructionTable">
                                             <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
                                                 <div class="mdl-card__title mdl-card--expand">
@@ -189,7 +190,7 @@
                                                         Map<Integer, String> qoMap = optionMap.get(questionId);
                                                 %>
                                                 <tr>
-                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div>*</div><%}%></td>
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
                                                     <%
                                                         for (int optionId : qoMap.keySet()) {
                                                     %>
@@ -235,7 +236,7 @@
                                     %>
                                     <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="question-<%=questionId%>">
                                         <div class="questionText">
-                                            <h2><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div>*</div><%}%></h2>
+                                            <h2><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></h2>
                                         </div>
                                         <div class="mdl-selectfield mdl-js-selectfield  mdl-selectfield--floating-label">
                                             <select id="dropdown_function_<%=q.getQuestionId()%>" name="function" class="mdl-selectfield__select" required>
@@ -254,17 +255,17 @@
                                         </div>
                                     </div>
                                     <%}
-                                        }%>
+                                                                }%>
                                 </div>
                                 <%}%>
                             </div>
                             <!-- Add Arrows -->
                             <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--2-col-phone">
-                                    <button class="mdl-button mdl-js-button swiper-prev" id="prevButton">
+                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--3-col-phone">
+                                    <button class="mdl-button mdl-js-button swiper-prev mdl-button--raised" id="prevButton" disabled>
                                         Previous
                                     </button>
-                                    <button class="mdl-button mdl-js-button swiper-next" id="nextButton" disabled>
+                                    <button class="mdl-button mdl-js-button swiper-next mdl-button--raised" id="nextButton" disabled>
                                         Next
                                     </button>
                                 </div>
@@ -272,8 +273,8 @@
                                     <!-- Add Pagination -->
                                     <div class="swiper-pagination"></div>
                                 </div>    
-                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--1-col-phone">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--indigo-500 mdl-color-text--white" id="submitButton">
+                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--4-col-phone">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submitButton" onclick="submit()" disabled>
                                         Submit
                                     </button>
                                     <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="submitButton">

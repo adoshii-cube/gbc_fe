@@ -4,54 +4,58 @@
  * and open the template in the editor.
  */
 $(document).ready(function () {
-    if ($("#demo").length > 0) {
-        $('#demo').jplist({
-            itemsBox: '.list',
-            itemPath: '.list-item',
-            panelPath: '.jplist-panel'
-        });
-    } else if ($(".swiper-container").length > 0) {
-        var swiper = new Swiper('.swiper-container', {
-            nextButton: '.swiper-next',
-            prevButton: '.swiper-prev',
-            pagination: '.swiper-pagination',
-            paginationType: 'fraction',
-            speed: 0,
-            simulateTouch: false,
-            onlyExternal: true,
-            keyboardControl: true,
-            autoHeight: true,
-            roundLengths: true,
-            onSlideNextStart: function () {
-                if (swiper.isEnd) {
-                    $("#submitButton").css("display", "block");
-                } else {
-                    $("#submitButton").css("display", "none");
-                    $("#nextButton").prop("disabled", true);
-                    activateNavigationButtons();
-                }
-            },
-            onSlidePrevStart: function () {
-                if (swiper.isEnd) {
-                    $("#submitButton").css("display", "block");
-                } else {
-                    $("#submitButton").css("display", "none");
-                    $("#nextButton").prop("disabled", true);
-                    activateNavigationButtons();
-                }
+
+    var swiper = new Swiper('.swiper-container', {
+        nextButton: '.swiper-next',
+        prevButton: '.swiper-prev',
+        pagination: '.swiper-pagination',
+        paginationType: 'fraction',
+        speed: 0,
+        simulateTouch: false,
+        onlyExternal: true,
+        keyboardControl: true,
+        autoHeight: true,
+        roundLengths: true,
+        onSlideNextStart: function () {
+            if (swiper.isEnd) {
+                $("#submitButton").css("display", "block");
+                $("#nextButton").prop("disabled", true);
+            } else if (swiper.isBeginning) {
+                $("prevButton").prop("disabled", true);
+                activateNavigationButtons();
+            } else {
+                $("#submitButton").css("display", "none");
+                $("#nextButton").prop("disabled", true);
+                $("#prevButton").prop("disabled", false);
+                activateNavigationButtons();
             }
-        });
+        },
+        onSlidePrevStart: function () {
+            if (swiper.isEnd) {
+                $("#submitButton").css("display", "block");
+                $("#nextButton").prop("disabled", true);
+            } else if (swiper.isBeginning) {
+                $("prevButton").prop("disabled", true);
+                activateNavigationButtons();
+            } else {
+                $("#submitButton").css("display", "none");
+                $("#nextButton").prop("disabled", true);
+                $("#prevButton").prop("disabled", false);
+                activateNavigationButtons();
+            }
+        }
+    });
 
 //DISABLE TAB KEYPRESS DUE TO CONFLICT WITH SWIPER
-        $(document).keydown(function (e)
-        {
-            var keycode1 = (e.keyCode ? e.keyCode : e.which);
-            if (keycode1 === 0 || keycode1 === 9) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        });
-    }
+    $(document).keydown(function (e)
+    {
+        var keycode1 = (e.keyCode ? e.keyCode : e.which);
+        if (keycode1 === 0 || keycode1 === 9) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+
 
     $(".question").hover(function () {
         $(this).toggleClass("mdl-shadow--3dp");
@@ -103,6 +107,18 @@ $(document).ready(function () {
     $('.swiper-wrapper :input').bind("keyup click change", function () {
         activateNavigationButtons();
     });
+
+    $(".openTextResponse").each(function () {
+        $(this).val('');
+    });
+    $(".mdl-radio").each(function () {
+//        $(this).prop("checked", false);
+        $(this).removeClass("is-checked");
+    });
+    $(".mdl-selectfield").each(function () {
+//        $(this).val("0");
+        $(this).parent().find("span.mdl-selectfield__box-value").text("Please select an option");
+    });
 });
 
 
@@ -111,7 +127,7 @@ function activateNavigationButtons() {
     var sectionId = $('.swiper-slide-active').attr('id').split('-')[1];
     var mandatoryCount = 0;
     if (sectionId === "1") {
-        mandatoryCount = 2;
+        mandatoryCount = 1;
     } else if (sectionId === "2" || sectionId === "3") {
         mandatoryCount = 25;
     } else if (sectionId === "5") {
@@ -119,7 +135,11 @@ function activateNavigationButtons() {
     }
     var count = 0;
     $('.swiper-slide-active :input').each(function () {
-        if (sectionId !== "5") {
+        if (sectionId === "1") {
+            if ($(this).attr("type") === "radio" && $(this).is(':checked')) {
+                count++;
+            }
+        } else if (sectionId !== "5") {
             if ($(this).attr("type") === "radio" && $(this).is(':checked')) {
                 count++;
             }
@@ -131,7 +151,7 @@ function activateNavigationButtons() {
             var optionValue = $('#dropdown_function_54 option').filter(function () {
                 return $(this).text() === selectedOption;
             }).val();
-            if(optionValue > 0){
+            if (optionValue > 0) {
                 count++;
             }
         }
@@ -139,12 +159,23 @@ function activateNavigationButtons() {
 
     if (count > 0 && mandatoryCount === count) {
         $('#nextButton').prop('disabled', false);
+    } else if (count > 0 && mandatoryCount === 1 && sectionId === "5") {
+        $("#submitButton").prop("disabled", false);
+        $("#submitButton").addClass("mdl-color--indigo-500");
+        $("#submitButton").addClass("mdl-color-text--white");
     } else {
+        $("#submitButton").prop("disabled", true);
+        $("#submitButton").removeClass("mdl-color--indigo-500");
+        $("#submitButton").removeClass("mdl-color-text--white");
         $('#nextButton').prop('disabled', true);
     }
 
     if (sectionId === "4") {
         $('#nextButton').prop('disabled', false);
+    }
+
+    if (sectionId === "1") {
+        $('#prevButton').prop('disabled', true);
     }
 //    });
 }
@@ -153,40 +184,41 @@ function activateNavigationButtons() {
 function submit() {
     var responseArr = [];
 
-    // OPENTEXT response
     $(".mdl-radio__button").each(function () {
-        if ($(this)[0].value !== "") {
-            var id = $(this)[0].id.split("-");
-            var value = $(this)[0].value;
+        if ($(this).is(":checked")) {
+            var id = $(this).attr("id").split("-");
+            var qId = id[0];
+            var comment = "";
+            if (qId === "1") {
+                comment = $("#openText-1").val();
+            }
             var jsonObj = {
-                "questionId": id[1],
-                "responseString": value,
-                "comment": ""
+                "questionId": id[0],
+                "optionId": id[1],
+                "comment": comment
             };
             responseArr.push(jsonObj);
         }
     });
 
     $(".openTextResponse").each(function () {
-        if ($(this)[0].value !== "") {
-            var id = $(this)[0].id.split("-");
-            var value = $(this)[0].value;
+        if ($(this).attr("id") !== "openText-1" && $(this).val() !== "") {
+            var id = $(this).attr("id").split("-");
             var jsonObj = {
                 "questionId": id[1],
-                "responseString": value,
-                "comment": ""
+                "optionId": "0",
+                "comment": $(this).val()
             };
             responseArr.push(jsonObj);
         }
     });
 
     $(".mdl-selectfield__select").each(function () {
-        if ($(this)[0].value !== "") {
-            var id = $(this)[0].id.split("-");
-            var value = $(this)[0].value;
+        if ($(this).val() !== "0") {
+            var id = $(this).attr("id").split("_");
             var jsonObj = {
-                "questionId": id[1],
-                "responseString": value,
+                "questionId": id[2],
+                "optionId": $(this).val(),
                 "comment": ""
             };
             responseArr.push(jsonObj);
