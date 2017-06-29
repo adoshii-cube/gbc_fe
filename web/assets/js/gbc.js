@@ -43,6 +43,9 @@ $(document).ready(function () {
                 $("#prevButton").prop("disabled", false);
                 activateNavigationButtons();
             }
+        },
+        onSlideChangeStart: function () {
+            $('.android-content').animate({scrollTop: 0}, 0);
         }
     });
 
