@@ -103,7 +103,8 @@ $(document).ready(function () {
         $(".swiper-container").css("display", "none");
         $(".centerSpinner").css("display", "flex");
         $("#loadingSpinner").css("display", "block");
-        setTimeout(submit, 3000);
+//        setTimeout(submit, 3000);
+        submit();
     });
 });
 
