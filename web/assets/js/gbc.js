@@ -91,19 +91,18 @@ $(document).ready(function () {
         $(this).val('');
     });
     $(".mdl-radio").each(function () {
-//        $(this).prop("checked", false);
         $(this).removeClass("is-checked");
     });
     $(".mdl-selectfield").each(function () {
-//        $(this).val("0");
         $(this).parent().find("span.mdl-selectfield__box-value").text("Please select an option");
     });
 
     $("#submitButton").on("click", function () {
+        $(this).prop("disabled", true);
         $(".swiper-container").css("display", "none");
         $(".centerSpinner").css("display", "flex");
         $("#loadingSpinner").css("display", "block");
-        submit();
+        setTimeout(submit, 3000);
     });
 });
 
@@ -148,13 +147,11 @@ function activateNavigationButtons() {
     } else if (count > 0 && mandatoryCount === 1 && sectionId === "5") {
         $("#submitButton").prop("disabled", false);
         $("#submitButton").addClass("mdl-color--indigo-500 mdl-color-text--white activated");
-//        $("#submitButton").addClass("");
     } else if ($("#submitButton").hasClass("activated")) {
         //DO NOTHING IF SUBMIT BUTTON HAS CLASS 'ACTIVATED'; THIS MEANS ALL MANDATORY QUESTIONS HAVE BEEN ANSWERED
     } else {
         $("#submitButton").prop("disabled", true);
         $("#submitButton").removeClass("mdl-color--indigo-500 mdl-color-text--white");
-//        $("#submitButton").removeClass("");
         $('#nextButton').prop('disabled', true);
     }
 
@@ -165,7 +162,6 @@ function activateNavigationButtons() {
     if (sectionId === "1") {
         $('#prevButton').prop('disabled', true);
     }
-//    });
 }
 
 function submit() {
