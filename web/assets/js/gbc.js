@@ -99,6 +99,7 @@ $(document).ready(function () {
 
     $("#submitButton").on("click", function () {
         $(this).prop("disabled", true);
+        $(this).removeClass("mdl-color--indigo-500 mdl-color-text--white");
         $(".swiper-container").css("display", "none");
         $(".centerSpinner").css("display", "flex");
         $("#loadingSpinner").css("display", "block");
