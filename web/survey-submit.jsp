@@ -36,7 +36,7 @@
             }
             System.out.println("Response list size :::: " + responseList.size());
             System.out.println("GBC :::survey-submit.jsp for  exiting the while loop");
-            boolean subResp = responseHelper.saveAllResponses(responseList);
+            boolean subResp = responseHelper.saveResponses(responseList);
             JSONObject respJOBJ = new JSONObject();
             respJOBJ.put("status", subResp);
             if (subResp) {
