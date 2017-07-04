@@ -673,7 +673,7 @@ table {
     padding-top: 32px;
     width: 90%;
     text-align: left;
-    color: #9e9e9e;
+    /*color: #9e9e9e;*/
 }
 
 .sectionInstructionTable {
@@ -913,4 +913,8 @@ textarea {
 
 .mdl-selectfield__list-option-box ul{
     z-index: 999;
+}
+
+.underline{
+    text-decoration: underline;
 }

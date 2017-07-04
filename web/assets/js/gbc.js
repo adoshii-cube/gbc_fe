@@ -13,7 +13,7 @@ $(document).ready(function () {
         speed: 0,
         simulateTouch: false,
         onlyExternal: true,
-        keyboardControl: true,
+//        keyboardControl: true,
         autoHeight: true,
         roundLengths: true,
         onSlideNextStart: function () {
@@ -161,6 +161,18 @@ function activateNavigationButtons() {
 
     if (sectionId === "1") {
         $('#prevButton').prop('disabled', true);
+    }
+
+    if (sectionId === "5") {
+        var selectedOption = $("#dropdown_function_54").parent().find(".mdl-selectfield__box-value").text();
+        var optionValue = $('#dropdown_function_54 option').filter(function () {
+            return $(this).text() === selectedOption;
+        }).val();
+
+        if (optionValue === "0") {
+            $("#submitButton").prop("disabled", true);
+            $("#submitButton").removeClass("mdl-color--indigo-500 mdl-color-text--white");
+        }
     }
 }
 

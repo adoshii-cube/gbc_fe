@@ -144,7 +144,7 @@
                                     %>
                                     <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
                                         <%if (sectionId == 2) {%>
-                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its effectiveness.</div>
+                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>effectiveness</b></span>.</div>
                                         <div class="sectionInstructionTable">
                                             <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
                                                 <div class="mdl-card__title mdl-card--expand">
@@ -157,7 +157,7 @@
                                             </div>
                                         </div>
                                         <%} else if (sectionId == 3) {%>
-                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of its importance in meeting your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its importance.</div>
+                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of its importance in meeting your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>importance</b></span>.</div>
                                         <div class="sectionInstructionTable">
                                             <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
                                                 <div class="mdl-card__title mdl-card--expand">
