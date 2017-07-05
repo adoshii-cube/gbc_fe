@@ -260,6 +260,9 @@
                                 <%}%>
                             </div>
                             <!-- Add Arrows -->
+                            <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone note">
+                                <div><i>(Note: All questions marked <span class="mandatory">*</span> must be answered to proceed to the next page)</i></div>
+                            </div>
                             <div class="mdl-grid">
                                 <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--3-col-phone">
                                     <button class="mdl-button mdl-js-button swiper-prev mdl-button--raised" id="prevButton" disabled>
