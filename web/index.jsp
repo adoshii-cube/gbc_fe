@@ -65,7 +65,7 @@
                                 <h2 class="mdl-card__title-text">Welcome</h2>
                             </div>
                             <div class="mdl-card__supporting-text">
-                                Thank you for taking the time to complete this survey. Your frank views are needed to help shape the HR service at WVUK and support you in your delivery of services for vulnerable children.
+                                Thank you for taking the time to complete this survey. Your frank views are needed to help shape the P&C service at WVUK and support you in your delivery of services for vulnerable children.
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="survey.jsp">
