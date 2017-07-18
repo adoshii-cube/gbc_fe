@@ -1,13 +1,9 @@
 <%-- 
-    Document   : index
-    Created on : 27 Jun, 2017, 2:19:16 PM
+    Document   : index1
+    Created on : 18 Jul, 2017, 10:55:12 AM
     Author     : adoshi
 --%>
 
-<%@page import="org.owen.survey.Question"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.HashMap"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,10 +18,7 @@
         <!--<link href="assets/css/materialdesignicons.css" media="all" rel="stylesheet" type="text/css" />-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <!--<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>-->
-        <link href="assets/css/gbc.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/mdl-selectfield.min.css" rel="stylesheet" type="text/css">
-
-        <link href="assets/css/swiper.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/css/index.css" rel="stylesheet" type="text/css">
 
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -67,242 +60,23 @@
             <main class="android-content mdl-layout__content">
                 <div class="page-content">
                     <div class="android-card-container mdl-grid">
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <%
-                                    Question qObj = new Question();
-                                    Map<Integer, List<Question>> resultMap = qObj.getQuestionList();
-                                    Map<Integer, Map<Integer, String>> optionMap = qObj.getOptionsList();
-
-                                    for (Integer sectionId : resultMap.keySet()) {
-                                        String sectionHeader = "";
-                                        if (sectionId == 1) {
-                                            sectionHeader = "Section 1: Introduction";
-                                        } else if (sectionId == 2) {
-                                            sectionHeader = "Section 2: HR Effectiveness";
-                                        } else if (sectionId == 3) {
-                                            sectionHeader = "Section 3: HR Importance";
-                                        } else if (sectionId == 4) {
-                                            sectionHeader = "Section 4: Other Questions about HR Services";
-                                        } else if (sectionId == 5) {
-                                            sectionHeader = "Section 5: About You";
-                                        }
-                                %>  
-                                <div class="swiper-slide" id="section-<%=sectionId%>">
-                                    <div class="sectionHeaderText">
-                                        <h2><%=sectionHeader%></h2>
-                                    </div>
-                                    <%
-                                        if (sectionId == 1) {
-                                    %>
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
-
-                                        <%
-                                            List<Question> qList = resultMap.get(sectionId);
-                                            for (int i = 0; i < qList.size(); i++) {
-                                                Question q = qList.get(i);
-                                                int questionId = q.getQuestionId();
-                                                Map<Integer, String> qoMap = optionMap.get(questionId);
-                                        %>
-                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section1Table" id="table-section-<%=sectionId%>">
-                                            <thead>
-                                                <tr>
-                                                    <th>Question</th>
-                                                    <th>Fully</th>
-                                                    <th>Partially</th>
-                                                    <th>To a limited extent</th>
-                                                    <th>Not at all</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr >
-                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
-                                                    <%
-                                                        for (int optionId : qoMap.keySet()) {
-                                                    %>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
-                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
-                                                        </label>
-                                                    </td>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="mdl-textfield mdl-js-textfield openTextField">
-                                            <div class="questionInstructionText">Please add examples</div>
-                                            <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-<%=questionId%>" ></textarea>
-                                            <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
-                                            <input type="hidden" id="qtype_" value="" /> 
-                                        </div>
-                                    </div>
-                                    <%
-                                        }
-                                    } else if (sectionId == 2 || sectionId == 3) {
-                                    %>
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
-                                        <%if (sectionId == 2) {%>
-                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>effectiveness</b></span>.</div>
-                                        <div class="sectionInstructionTable">
-                                            <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
-                                                <div class="mdl-card__title mdl-card--expand">
-                                                    <h2 class="mdl-card__title-text">Key</h2>
-                                                </div>
-                                                <div class="mdl-card__supporting-text">
-                                                    1 - Does not meet my expectations || 2 - Meets some of my expectations || 3 - Meets all of my expectations || 4 - Exceeds my expectations || NA - You have not used this service and cannot judge its effectiveness
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <%} else if (sectionId == 3) {%>
-                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of its importance in meeting your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>importance</b></span>.</div>
-                                        <div class="sectionInstructionTable">
-                                            <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
-                                                <div class="mdl-card__title mdl-card--expand">
-                                                    <h2 class="mdl-card__title-text">Key</h2>
-                                                </div>
-                                                <div class="mdl-card__supporting-text">
-                                                    1 - Not important at all || 2 - Somewhat important || 3 - Very important || 4 - Critical || NA - You have not used this service and cannot judge its importance
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <%}%>
-
-                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-<%=sectionId%>">
-                                            <thead>
-                                                <tr>
-                                                    <th>Question</th>
-                                                    <th>1</th>
-                                                    <th>2</th>
-                                                    <th>3</th>
-                                                    <th>4</th>
-                                                    <th>N/A</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <%
-                                                    List<Question> qList = resultMap.get(sectionId);
-                                                    for (int i = 0; i < qList.size(); i++) {
-                                                        Question q = qList.get(i);
-                                                        int questionId = q.getQuestionId();
-                                                        Map<Integer, String> qoMap = optionMap.get(questionId);
-                                                %>
-                                                <tr>
-                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
-                                                    <%
-                                                        for (int optionId : qoMap.keySet()) {
-                                                    %>
-                                                    <td>
-                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
-                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
-                                                        </label>
-                                                    </td>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </tr>
-                                                <%
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <%} else if (sectionId == 4) {%>
-                                    <%
-                                        List<Question> qList = resultMap.get(sectionId);
-                                        for (int i = 0; i < qList.size(); i++) {
-                                            Question q = qList.get(i);
-                                            int questionId = q.getQuestionId();
-                                    %>
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="question-<%=questionId%>">
-                                        <div class="questionText">
-                                            <h2><%=q.getQuestionText()%></h2>
-                                        </div>
-                                        <div class="mdl-textfield mdl-js-textfield openTextFieldNoInstructions">
-                                            <textarea class="mdl-textfield__input openTextResponse" type="text" rows="5" maxrows="5" id="openText-<%=questionId%>" ></textarea>
-                                            <label class="mdl-textfield__label" for="openText"><i>Note: Your responses are <b>confidential</b></i></label>
-                                        </div>
-                                    </div>
-                                    <%
-                                        }
-                                    } else if (sectionId == 5) {%>
-                                    <%
-                                        List<Question> qList = resultMap.get(sectionId);
-                                        for (int i = 0; i < qList.size(); i++) {
-                                            Question q = qList.get(i);
-                                            int questionId = q.getQuestionId();
-                                    %>
-                                    <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone question" id="question-<%=questionId%>">
-                                        <div class="questionText">
-                                            <h2><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></h2>
-                                        </div>
-                                        <div class="mdl-selectfield mdl-js-selectfield  mdl-selectfield--floating-label">
-                                            <select id="dropdown_function_<%=q.getQuestionId()%>" name="function" class="mdl-selectfield__select" required>
-                                                <option value="0">Please select an option</option>
-                                                <%
-                                                    Map<Integer, String> qoMap = optionMap.get(questionId);
-                                                    for (int optionId : qoMap.keySet()) {
-                                                %>
-                                                <option value=<%=optionId%>><%=qoMap.get(optionId)%></option>
-                                                <%
-                                                    }
-                                                %>
-                                            </select>
-                                            <!--<label class="mdl-selectfield__label" for="myselect">Please select an option</label>-->
-                                            <!--<span class="mdl-selectfield__error">Please select a function</span>-->
-                                        </div>
-                                    </div>
-                                    <%}
-                                        }%>
-                                </div>
-                                <%}%>
+                        <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card">
+                            <div class="mdl-card__title">
+                                <h2 class="mdl-card__title-text">Welcome</h2>
                             </div>
-                            <!-- Add Arrows -->
-                            <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone note">
-                                <div><i>(Note: All questions marked <span class="mandatory">*</span> must be answered to proceed)</i></div>
+                            <div class="mdl-card__supporting-text">
+                                Thank you for taking the time to complete this survey. Your frank views are needed to help shape the HR service at WVUK and support you in your delivery of services for vulnerable children.
                             </div>
-                            <div class="mdl-grid">
-                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--3-col-phone">
-                                    <button class="mdl-button mdl-js-button swiper-prev mdl-button--raised" id="prevButton" disabled>
-                                        Previous
-                                    </button>
-                                    <button class="mdl-button mdl-js-button swiper-next mdl-button--raised" id="nextButton" disabled>
-                                        Next
-                                    </button>
-                                </div>
-                                <div class="mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--1-col-phone paginationContainer">
-                                    <!-- Add Pagination -->
-                                    <div class="swiper-pagination"></div>
-                                </div>    
-                                <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--4-col-phone">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submitButton" disabled>
-                                        Submit
-                                    </button>
-                                    <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="submitButton">
-                                        Submit your responses
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<div class="swiper-button-next"></div>-->
-                            <!--<div class="swiper-button-prev"></div>-->
-                        </div>
-                        <div class="centerSpinner">
-                            <div class="android-card-container mdl-grid">
-                                <div class="mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-                                    <div class="mdl-spinner mdl-js-spinner is-active" id="loadingSpinner"></div>
-                                </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-button--raised mdl-js-ripple-effect" href="survey.jsp">
+                                    Proceed to Survey<i class="material-icons">keyboard_arrow_right</i>
+                                </a>
                             </div>
                         </div>
-                    </div>             
+                    </div>
                 </div>
             </main>
         </div>
-    </div>
-    <script src="assets/js/material.min.js"></script>
-    <script src="assets/js/mdl-selectfield.min.js"></script>
-    <script src="assets/js/gbc.js"></script>
-    <script src="assets/js/swiper.min.js"></script>
-</body>
+        <script src="assets/js/material.min.js"></script>
+    </body>
 </html>

@@ -1,0 +1,101 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 Jul, 2017, 11:38:13 AM
+    Author     : adoshi
+*/
+
+body {
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    /*font-family: 'Roboto', 'sans-serif';*/
+}
+
+.mdl-layout__header {
+    background-color: #ffffff;
+    /* background-color: #3F51B5; */
+    /* background-color: #C1D72F; */
+}
+
+a {
+    color: #303F9F;
+    text-decoration: none;
+}
+
+.android-title, .android-mobile-title, .mdl-navigation__link {
+    color: #303f9f !important;
+    font-size: 18px;
+}
+
+.android-logo-image {
+    width: 300px;
+}
+
+a img {
+    border: 0px;
+}
+
+.android-navigation-container {
+    direction: rtl;
+    order: 1;
+    width: 500px;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.android-title, .android-mobile-title, .mdl-navigation__link {
+    color: #303f9f !important;
+    font-size: 18px;
+}
+
+.android-mobile-title {
+    display: none !important;
+}
+
+.mdl-layout__content {
+    background-color: #eceff1;
+    overflow: overlay;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.page-content {
+    width: auto;
+    margin: auto;
+    max-width: 978px;
+}
+
+.mdl-card{
+    min-height: 0px;
+}
+
+.mdl-card__actions{
+    text-align: right;
+}
+
+@media (max-width: 1023px)
+{
+    .page-content {
+        /* margin: 0 15px; */
+    }
+}
+
+@media (max-width: 900px){
+
+    .android-title {
+        display: none !important;
+    }
+
+    .android-logo-image {
+        width: 200px !important;
+    }
+
+    .android-mobile-title {
+        display: block !important;
+        position: absolute;
+        left: calc(50% - 128px);
+        top: 12px;
+        transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
