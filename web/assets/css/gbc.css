@@ -488,6 +488,10 @@ div .mdl-textfield__label:after {
     .sectionInstructionTable table{
         width: 100% !important;
     }
+
+    .android-title, .android-mobile-title, .mdl-navigation__link{
+        font-size: 14px !important;
+    }
 }
 
 /*HR*/

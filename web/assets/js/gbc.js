@@ -18,13 +18,17 @@ $(document).ready(function () {
         roundLengths: true,
         onSlideNextStart: function () {
             if (swiper.isEnd) {
-                $("#submitButton").css("display", "block");
                 $("#nextButton").prop("disabled", true);
+                $("#nextButton").css("display", "none");
+                $("#submitButton").css("display", "inline-block");
             } else if (swiper.isBeginning) {
-                $("prevButton").prop("disabled", true);
+                $("#prevButton").prop("disabled", true);
+                $("#nextButton").css("display", "inline-block");
+                $("#submitButton").css("display", "none");
                 activateNavigationButtons();
             } else {
                 $("#submitButton").css("display", "none");
+                $("#nextButton").css("display", "inline-block");
                 $("#nextButton").prop("disabled", true);
                 $("#prevButton").prop("disabled", false);
                 activateNavigationButtons();
@@ -32,13 +36,17 @@ $(document).ready(function () {
         },
         onSlidePrevStart: function () {
             if (swiper.isEnd) {
-                $("#submitButton").css("display", "block");
                 $("#nextButton").prop("disabled", true);
+                $("#nextButton").css("display", "none");
+                $("#submitButton").css("display", "inline-block");
             } else if (swiper.isBeginning) {
-                $("prevButton").prop("disabled", true);
+                $("#prevButton").prop("disabled", true);
+                $("#nextButton").css("display", "inline-block");
+                $("#submitButton").css("display", "none");
                 activateNavigationButtons();
             } else {
                 $("#submitButton").css("display", "none");
+                $("#nextButton").css("display", "inline-block");
                 $("#nextButton").prop("disabled", true);
                 $("#prevButton").prop("disabled", false);
                 activateNavigationButtons();
@@ -116,7 +124,7 @@ function activateNavigationButtons() {
     if (sectionId === "1") {
         mandatoryCount = 1;
     } else if (sectionId === "2" || sectionId === "3") {
-        mandatoryCount = 25;
+        mandatoryCount = 26;
     } else if (sectionId === "5") {
         mandatoryCount = 1;
     }
@@ -134,8 +142,8 @@ function activateNavigationButtons() {
                 count++;
             }
         } else {
-            var selectedOption = $("#dropdown_function_54").parent().find(".mdl-selectfield__box-value").text();
-            var optionValue = $('#dropdown_function_54 option').filter(function () {
+            var selectedOption = $("#dropdown_function_56").parent().find(".mdl-selectfield__box-value").text();
+            var optionValue = $('#dropdown_function_56 option').filter(function () {
                 return $(this).text() === selectedOption;
             }).val();
             if (optionValue > 0) {
@@ -166,8 +174,8 @@ function activateNavigationButtons() {
     }
 
     if (sectionId === "5") {
-        var selectedOption = $("#dropdown_function_54").parent().find(".mdl-selectfield__box-value").text();
-        var optionValue = $('#dropdown_function_54 option').filter(function () {
+        var selectedOption = $("#dropdown_function_56").parent().find(".mdl-selectfield__box-value").text();
+        var optionValue = $('#dropdown_function_56 option').filter(function () {
             return $(this).text() === selectedOption;
         }).val();
 

@@ -48,13 +48,13 @@
                     <!-- Navigation -->
                     <div class="android-navigation-container">
                         <nav class="mdl-navigation">
-                            <div class="mdl-navigation__link" href="">HR Survey</div>
+                            <div class="mdl-navigation__link" href="">P&C Survey</div>
                         </nav>
                     </div>
                     <!-- Right aligned menu below button -->
                     <a>
                         <span class="android-mobile-title mdl-layout-title" id="switchUserMobile">
-                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">&nbsp;HR Survey</span>
+                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">&nbsp;P&C Survey</span>
                     </a>
 
                 </div>

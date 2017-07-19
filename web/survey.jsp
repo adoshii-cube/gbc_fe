@@ -4,6 +4,7 @@
     Author     : adoshi
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="org.owen.survey.Question"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
@@ -54,13 +55,13 @@
                     <!-- Navigation -->
                     <div class="android-navigation-container">
                         <nav class="mdl-navigation">
-                            <div class="mdl-navigation__link" href="">HR Survey</div>
+                            <div class="mdl-navigation__link" href="">P&C Survey</div>
                         </nav>
                     </div>
                     <!-- Right aligned menu below button -->
                     <a>
                         <span class="android-mobile-title mdl-layout-title" id="switchUserMobile">
-                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">&nbsp;HR Survey</span>
+                            <img class="android-logo-image" src="assets/images/Logo.png" alt="Logo">&nbsp;P&C Survey</span>
                     </a>
                 </div>
             </header>
@@ -75,22 +76,13 @@
                                     Map<Integer, Map<Integer, String>> optionMap = qObj.getOptionsList();
 
                                     for (Integer sectionId : resultMap.keySet()) {
-                                        String sectionHeader = "";
-                                        if (sectionId == 1) {
-                                            sectionHeader = "Section 1: Introduction";
-                                        } else if (sectionId == 2) {
-                                            sectionHeader = "Section 2: HR Effectiveness";
-                                        } else if (sectionId == 3) {
-                                            sectionHeader = "Section 3: HR Importance";
-                                        } else if (sectionId == 4) {
-                                            sectionHeader = "Section 4: Other Questions about HR Services";
-                                        } else if (sectionId == 5) {
-                                            sectionHeader = "Section 5: About You";
-                                        }
                                 %>  
                                 <div class="swiper-slide" id="section-<%=sectionId%>">
                                     <div class="sectionHeaderText">
-                                        <h2><%=sectionHeader%></h2>
+                                        <%
+                                            List<Question> qList = resultMap.get(sectionId);
+                                        %>
+                                        <h2><%=qList.get(0).getSectionName()%></h2>
                                     </div>
                                     <%
                                         if (sectionId == 1) {
@@ -98,7 +90,6 @@
                                     <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
 
                                         <%
-                                            List<Question> qList = resultMap.get(sectionId);
                                             for (int i = 0; i < qList.size(); i++) {
                                                 Question q = qList.get(i);
                                                 int questionId = q.getQuestionId();
@@ -144,7 +135,7 @@
                                     %>
                                     <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone mdl-card question" id="section-<%=sectionId%>">
                                         <%if (sectionId == 2) {%>
-                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>effectiveness</b></span>.</div>
+                                        <div class="sectionInstructionText">For each of the following P&C Services, please rate each in terms of how effectively the service provided meets your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>effectiveness</b></span>.</div>
                                         <div class="sectionInstructionTable">
                                             <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
                                                 <div class="mdl-card__title mdl-card--expand">
@@ -157,7 +148,7 @@
                                             </div>
                                         </div>
                                         <%} else if (sectionId == 3) {%>
-                                        <div class="sectionInstructionText">For each of the following HR Services, please rate each in terms of its importance in meeting your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>importance</b></span>.</div>
+                                        <div class="sectionInstructionText">For each of the following P&C Services, please rate each in terms of its importance in meeting your expectation and needs. Use Not Applicable (NA) if you have not used this service and cannot judge its <span class="underline"><b>importance</b></span>.</div>
                                         <div class="sectionInstructionTable">
                                             <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--8-col-phone mdl-card mdl-shadow--3dp key">
                                                 <div class="mdl-card__title mdl-card--expand">
@@ -169,12 +160,11 @@
                                             </div>
                                         </div>
                                         <%}%>
-                                        
-                                        <!--RASHMI::: START LOOP HERE-->
+
                                         <div class="subSectionHeader">
-                                            <h3>Managing Information</h3>
+                                            <h3>Culture</h3>
                                         </div>
-                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-<%=sectionId%>">
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-culture">
                                             <thead>
                                                 <tr>
                                                     <th>Question</th>
@@ -187,11 +177,11 @@
                                             </thead>
                                             <tbody>
                                                 <%
-                                                    List<Question> qList = resultMap.get(sectionId);
                                                     for (int i = 0; i < qList.size(); i++) {
                                                         Question q = qList.get(i);
                                                         int questionId = q.getQuestionId();
                                                         Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                        if (q.getSubSection().equals("Culture")) {
                                                 %>
                                                 <tr class="questionAndRadioContainer">
                                                     <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
@@ -208,18 +198,243 @@
                                                     %>
                                                 </tr>
                                                 <tr class="descriptionText">
-                                                    <td colspan="6">My HRBP monitors diversity in my team, provides challenge on decisions and actions; supporting inclusion through feedback and training</td>
+                                                    <td colspan="6"><%=q.getDescription()%></td>
                                                 </tr>
                                                 <%
+                                                        }
                                                     }
                                                 %>
                                             </tbody>
                                         </table>
-                                        <!--RASHMI::: END LOOP HERE-->
+                                        <div class="subSectionHeader">
+                                            <h3>Recruitment</h3>
+                                        </div>
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-culture">
+                                            <thead>
+                                                <tr>
+                                                    <th>Question</th>
+                                                    <th>1</th>
+                                                    <th>2</th>
+                                                    <th>3</th>
+                                                    <th>4</th>
+                                                    <th>N/A</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    for (int i = 0; i < qList.size(); i++) {
+                                                        Question q = qList.get(i);
+                                                        int questionId = q.getQuestionId();
+                                                        Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                        if (q.getSubSection().equals("Recruitment")) {
+                                                %>
+                                                <tr class="questionAndRadioContainer">
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
+                                                    <%
+                                                        for (int optionId : qoMap.keySet()) {
+                                                    %>
+                                                    <td>
+                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
+                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
+                                                        </label>
+                                                    </td>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </tr>
+                                                <tr class="descriptionText">
+                                                    <td colspan="6"><%=q.getDescription()%></td>
+                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
+                                        <div class="subSectionHeader">
+                                            <h3>Development</h3>
+                                        </div>
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-culture">
+                                            <thead>
+                                                <tr>
+                                                    <th>Question</th>
+                                                    <th>1</th>
+                                                    <th>2</th>
+                                                    <th>3</th>
+                                                    <th>4</th>
+                                                    <th>N/A</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    for (int i = 0; i < qList.size(); i++) {
+                                                        Question q = qList.get(i);
+                                                        int questionId = q.getQuestionId();
+                                                        Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                        if (q.getSubSection().equals("Development")) {
+                                                %>
+                                                <tr class="questionAndRadioContainer">
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
+                                                    <%
+                                                        for (int optionId : qoMap.keySet()) {
+                                                    %>
+                                                    <td>
+                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
+                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
+                                                        </label>
+                                                    </td>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </tr>
+                                                <tr class="descriptionText">
+                                                    <td colspan="6"><%=q.getDescription()%></td>
+                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
+                                        <div class="subSectionHeader">
+                                            <h3>Compliance</h3>
+                                        </div>
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-culture">
+                                            <thead>
+                                                <tr>
+                                                    <th>Question</th>
+                                                    <th>1</th>
+                                                    <th>2</th>
+                                                    <th>3</th>
+                                                    <th>4</th>
+                                                    <th>N/A</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    for (int i = 0; i < qList.size(); i++) {
+                                                        Question q = qList.get(i);
+                                                        int questionId = q.getQuestionId();
+                                                        Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                        if (q.getSubSection().equals("Compliance")) {
+                                                %>
+                                                <tr class="questionAndRadioContainer">
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
+                                                    <%
+                                                        for (int optionId : qoMap.keySet()) {
+                                                    %>
+                                                    <td>
+                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
+                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
+                                                        </label>
+                                                    </td>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </tr>
+                                                <tr class="descriptionText">
+                                                    <td colspan="6"><%=q.getDescription()%></td>
+                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
+                                        <div class="subSectionHeader">
+                                            <h3>Managing Information</h3>
+                                        </div>
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-culture">
+                                            <thead>
+                                                <tr>
+                                                    <th>Question</th>
+                                                    <th>1</th>
+                                                    <th>2</th>
+                                                    <th>3</th>
+                                                    <th>4</th>
+                                                    <th>N/A</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    for (int i = 0; i < qList.size(); i++) {
+                                                        Question q = qList.get(i);
+                                                        int questionId = q.getQuestionId();
+                                                        Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                        if (q.getSubSection().equals("Managing information")) {
+                                                %>
+                                                <tr class="questionAndRadioContainer">
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
+                                                    <%
+                                                        for (int optionId : qoMap.keySet()) {
+                                                    %>
+                                                    <td>
+                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
+                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
+                                                        </label>
+                                                    </td>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </tr>
+                                                <tr class="descriptionText">
+                                                    <td colspan="6"><%=q.getDescription()%></td>
+                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
+                                        <div class="subSectionHeader">
+                                            <h3>Strategic Planning</h3>
+                                        </div>
+                                        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp section2Table" id="table-section-culture">
+                                            <thead>
+                                                <tr>
+                                                    <th>Question</th>
+                                                    <th>1</th>
+                                                    <th>2</th>
+                                                    <th>3</th>
+                                                    <th>4</th>
+                                                    <th>N/A</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                    for (int i = 0; i < qList.size(); i++) {
+                                                        Question q = qList.get(i);
+                                                        int questionId = q.getQuestionId();
+                                                        Map<Integer, String> qoMap = optionMap.get(questionId);
+                                                        if (q.getSubSection().equals("Strategic Planning")) {
+                                                %>
+                                                <tr class="questionAndRadioContainer">
+                                                    <td><%=q.getQuestionText()%><%if (q.getMandatory() == 1) {%><div class="mandatory">&nbsp;*</div><%}%></td>
+                                                    <%
+                                                        for (int optionId : qoMap.keySet()) {
+                                                    %>
+                                                    <td>
+                                                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="<%=q.getQuestionId()%>-<%=optionId%>">
+                                                            <input type="radio" id="<%=q.getQuestionId()%>-<%=optionId%>" name="<%=q.getQuestionId()%>" class="mdl-radio__button" value="<%=optionId%>">
+                                                        </label>
+                                                    </td>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </tr>
+                                                <tr class="descriptionText">
+                                                    <td colspan="6"><%=q.getDescription()%></td>
+                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <%} else if (sectionId == 4) {%>
                                     <%
-                                        List<Question> qList = resultMap.get(sectionId);
+//                                        List<Question> qList = resultMap.get(sectionId);
                                         for (int i = 0; i < qList.size(); i++) {
                                             Question q = qList.get(i);
                                             int questionId = q.getQuestionId();
@@ -237,7 +452,7 @@
                                         }
                                     } else if (sectionId == 5) {%>
                                     <%
-                                        List<Question> qList = resultMap.get(sectionId);
+//                                        List<Question> qList = resultMap.get(sectionId);
                                         for (int i = 0; i < qList.size(); i++) {
                                             Question q = qList.get(i);
                                             int questionId = q.getQuestionId();
@@ -279,14 +494,12 @@
                                     <div class="swiper-pagination"></div>
                                 </div>    
                                 <div class="mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--3-col-phone navigationButtonsContainer">
-                                    <button class="mdl-button mdl-js-button swiper-prev mdl-button--raised" id="prevButton" disabled>
+                                    <button class="mdl-button mdl-js-button swiper-prev mdl-button--raised mdl-js-ripple-effect" id="prevButton" disabled>
                                         <i class="material-icons">keyboard_arrow_left</i>Prev
                                     </button>
-                                    <button class="mdl-button mdl-js-button swiper-next mdl-button--raised" id="nextButton" disabled>
+                                    <button class="mdl-button mdl-js-button swiper-next mdl-button--raised mdl-js-ripple-effect" id="nextButton" disabled>
                                         Next<i class="material-icons">keyboard_arrow_right</i>
                                     </button>
-                                </div>
-                                <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone submitButtonContainer">
                                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submitButton" disabled>
                                         Submit
                                     </button>
@@ -294,6 +507,14 @@
                                         Submit your responses
                                     </div>
                                 </div>
+<!--                                <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-cell--4-col-phone submitButtonContainer">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="submitButton" disabled>
+                                        Submit
+                                    </button>
+                                    <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="submitButton">
+                                        Submit your responses
+                                    </div>
+                                </div>-->
                             </div>
                             <!--<div class="swiper-button-next"></div>-->
                             <!--<div class="swiper-button-prev"></div>-->
